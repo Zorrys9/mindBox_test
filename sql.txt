@@ -1,0 +1,46 @@
+
+-- create
+CREATE TABLE Category (
+  Id int,
+  name varchar(100)
+);
+
+CREATE TABLE Product (
+  Id int,
+  name varchar(100)
+);
+
+CREATE TABLE ProductCategories (
+  Id int,
+  CategoryId int,
+  ProductId int
+);
+
+-- insert
+INSERT INTO Category(Id,name) VALUES (1, 'Clark');
+INSERT INTO Category(Id,name) VALUES (2, 'Dave');
+INSERT INTO Category(Id,name) VALUES (3, 'Ava');
+
+INSERT INTO Product(Id,name) VALUES (1, '1-2');
+INSERT INTO Product(Id,name) VALUES (2, '2-1');
+INSERT INTO Product(Id,name) VALUES (3, '3-1');
+INSERT INTO Product(Id,name) VALUES (4, '4-3');
+INSERT INTO Product(Id,name) VALUES (5, '5-1');
+
+INSERT INTO ProductCategories(Id,ProductId, CategoryId) VALUES (1, 1, 2);
+INSERT INTO ProductCategories(Id,ProductId, CategoryId) VALUES (2, 1, 1);
+INSERT INTO ProductCategories(Id,ProductId, CategoryId) VALUES (3, 2, 1);
+INSERT INTO ProductCategories(Id,ProductId, CategoryId) VALUES (4, 3, 2);
+INSERT INTO ProductCategories(Id,ProductId, CategoryId) VALUES (5, 4, 3);
+INSERT INTO ProductCategories(Id,ProductId, CategoryId) VALUES (6, 4, 1);
+INSERT INTO ProductCategories(Id,ProductId, CategoryId) VALUES (7, 4, 2);
+-- fetch 
+
+SELECT pr.Name as "Имя продукта", cat.name as "Имя категории" FROM Product as pr
+  full outer join ProductCategories as prc
+  on pr.Id = prc.ProductId
+  left join Category as cat
+  on cat.Id = prc.CategoryId
+  order by pr.Name;
+  
+GO
